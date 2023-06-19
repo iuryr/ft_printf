@@ -1,26 +1,40 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include "libft.h"
 
-int	ft_printf(char first, ...)
+int	ft_printf(const char *format, ...)
 {
-	char	current;
+	size_t	index;
 	va_list	args;
 
-	va_start(args, first);
-	current = 'x';
+	va_start(args, format);
 
-	while (current != '\0')
+	index = 0;
+	while (format[index] != '\0')
 	{
-		current = va_arg(args, char);
-		write(1, &current, 1);
-		write(1, "\n", 1);
+		if (format[index] == '%' && format[index+1] == 'c')
+		{
+			ft_putchar_fd(va_arg(args, int), 1);
+			index++;
+		}
+		if (format[index] == '%' && format[index + 1] == 's')
+		{
+			ft_putstr_fd(va_arg(args, char *), 1);
+			index++;
+		}
+		if (format[index] == '%' && format[index + 1] == 'i')
+		{
+			ft_putstr_fd(ft_itoa(va_arg(args, int)), 1);
+			index ++;
+		}
+		else
+		{
+			ft_putchar_fd(format[index], 1);
+		}
+		index++;
 	}
 	va_end(args);
 	return (0);
 }
 
-int main(void)
-{
-	ft_printf('0', 'a', 'b', 'c', '\0');
-}

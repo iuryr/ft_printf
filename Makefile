@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -c
 FLAGS = -Wall -Wextra -Werror
 
-LIBFT_DIR = ./libft
+LIBFT_DIR = libft
 
 SRC_FILES = ft_printf.c
 
@@ -15,7 +15,7 @@ all: $(NAME)
 $(NAME): $(OBJ_FILES)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) -I$(LIBFT_DIR) $< -o $@
 	ar -crs $(NAME) $@
 
 libft:
@@ -31,4 +31,10 @@ fclean: clean
 
 re: fclean $(NAME)
 
-.PHONY : libft
+test: $(NAME) libft
+	$(CC) $(FLAGS) -o test.out test.c -L. -l:libftprintf.a -Llibft -l:libft.a
+
+rmtest:
+	rm test.out
+
+.PHONY : libft clean fclean re test rmtest
