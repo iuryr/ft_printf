@@ -6,7 +6,8 @@ FLAGS = -Wall -Wextra -Werror
 
 LIBFT_DIR = libft
 
-SRC_FILES = ft_printf.c
+SRC_FILES = ft_printf.c \
+			ft_printf_utils.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -32,7 +33,7 @@ fclean: clean
 re: fclean $(NAME)
 
 test: $(NAME) libft
-	$(CC) $(FLAGS) -o test.out test.c -L. -l:libftprintf.a -Llibft -l:libft.a
+	$(CC) $(FLAGS) -o test.out -Ilibft test.c -L. -l:libftprintf.a -Llibft -l:libft.a
 
 rmtest:
 	rm test.out

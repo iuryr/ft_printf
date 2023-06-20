@@ -1,32 +1,29 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include "libft.h"
+#include "ft_printf.h"
 
 int	ft_printf(const char *format, ...)
 {
 	size_t	index;
+	size_t	ret_len;
 	va_list	args;
 
+	ret_len = ft_strlen(format);
 	va_start(args, format);
-
 	index = 0;
 	while (format[index] != '\0')
 	{
-		if (format[index] == '%' && format[index+1] == 'c')
+		if (format[index] == '%')
 		{
-			ft_putchar_fd(va_arg(args, int), 1);
+			ret_len--;
+			if (format[index + 1] == 'c')
+				ft_putchar_fd(va_arg(args, int), 1);
+			if (format[index + 1] == 's')
+				ret_len += prtf_putstr(va_arg(args, char *)) - 1;
+			if (format[index + 1] == 'i' || format[index + 1] == 'd')
+				ret_len += print_int(va_arg(args, int)) - 1;
 			index++;
-		}
-		if (format[index] == '%' && format[index + 1] == 's')
-		{
-			ft_putstr_fd(va_arg(args, char *), 1);
-			index++;
-		}
-		if (format[index] == '%' && format[index + 1] == 'i')
-		{
-			ft_putstr_fd(ft_itoa(va_arg(args, int)), 1);
-			index ++;
 		}
 		else
 		{
@@ -35,6 +32,6 @@ int	ft_printf(const char *format, ...)
 		index++;
 	}
 	va_end(args);
-	return (0);
+	return (ret_len);
 }
 
