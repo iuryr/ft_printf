@@ -13,7 +13,7 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES)
+$(NAME): libft $(OBJ_FILES)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(LIBFT_DIR) $< -o $@

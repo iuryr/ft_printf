@@ -23,6 +23,10 @@ int	ft_printf(const char *format, ...)
 				ret_len += prtf_putstr(va_arg(args, char *)) - 1;
 			if (format[index + 1] == 'i' || format[index + 1] == 'd')
 				ret_len += print_int(va_arg(args, int)) - 1;
+			if (format[index + 1] == 'u')
+				ret_len += print_uint(va_arg(args, unsigned int)) - 1;
+			// if (format[index + 1] == 'x')
+				// ret_len +=
 			index++;
 		}
 		else
