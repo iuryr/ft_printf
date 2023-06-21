@@ -25,8 +25,14 @@ int	ft_printf(const char *format, ...)
 				ret_len += print_int(va_arg(args, int)) - 1;
 			if (format[index + 1] == 'u')
 				ret_len += print_uint(va_arg(args, unsigned int)) - 1;
-			// if (format[index + 1] == 'x')
-				// ret_len +=
+			if (format[index + 1] == 'x')
+				ret_len += print_hex(va_arg(args, unsigned int), 'l') -1;
+			if (format[index + 1] == 'X')
+				ret_len += print_hex(va_arg(args, unsigned int), 'u') -1;
+			if (format[index + 1] == 'p')
+				ret_len += print_voidp(va_arg(args, void *)) -1;
+			if (format[index + 1] == '%')
+				ft_putchar_fd('%', 1);
 			index++;
 		}
 		else

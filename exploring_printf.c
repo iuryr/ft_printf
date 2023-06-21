@@ -12,5 +12,7 @@ int main(void)
 	printf("%i\n", a); // #x converts a (an int) to lowercase hexadecimal
 	printf("%#X\n",	a); // #x converts a (an int) to uppercase hexadecimal
 	printf("%d %i\n", 012, 012);
+	printf("%p\n", &a);
+	printf(" NULL %s NULL \n", NULL);
 }
 
