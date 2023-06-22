@@ -1,6 +1,15 @@
-#include <stdio.h>
-#include <stdarg.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/22 11:54:04 by iusantos          #+#    #+#             */
+/*   Updated: 2023/06/22 15:01:04 by iusantos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_printf(const char *format, ...)
@@ -36,9 +45,7 @@ int	ft_printf(const char *format, ...)
 			index++;
 		}
 		else
-		{
 			ft_putchar_fd(format[index], 1);
-		}
 		index++;
 	}
 	va_end(args);

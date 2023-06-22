@@ -7,7 +7,10 @@ FLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = libft
 
 SRC_FILES = ft_printf.c \
-			ft_printf_utils.c
+			ft_printf_csint_utils.c \
+			ft_printf_hex_utils.c \
+			ft_printf_uint_utils.c \
+			ft_printf_voidp_utils.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -16,11 +19,11 @@ all: $(NAME)
 $(NAME): libft $(OBJ_FILES)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I$(LIBFT_DIR) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 	ar -crs $(NAME) $@
 
 libft:
-	make -C $(LIBFT_DIR) libft.a
+	make -C $(LIBFT_DIR)
 
 clean:
 	make -C $(LIBFT_DIR) clean
@@ -33,7 +36,7 @@ fclean: clean
 re: fclean $(NAME)
 
 test: $(NAME) libft
-	$(CC) $(FLAGS) -o test.out -Ilibft test.c -L. -l:libftprintf.a -Llibft -l:libft.a
+	$(CC) $(FLAGS) -g3 -o test.out *.c -L. -l:libftprintf.a -Llibft -l:libft.a
 
 rmtest:
 	rm test.out
