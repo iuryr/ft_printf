@@ -1,61 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_csint_utils.c                            :+:      :+:    :+:   */
+/*   ft_printf_uint_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iusantos <iusantos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/20 11:10:55 by iusantos          #+#    #+#             */
-/*   Updated: 2023/06/23 11:21:31 by iusantos         ###   ########.fr       */
+/*   Created: 2023/06/22 14:36:56 by iusantos          #+#    #+#             */
+/*   Updated: 2023/06/22 14:38:20 by iusantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	prtf_putchar(char c)
+void	write_str(long n, char *str, size_t length)
 {
-	size_t	length;
+	size_t	index;
 
-	length = 1;
-	ft_putchar_fd(c, 1);
-	return (length);
-}
-
-size_t	prtf_putstr(char *str)
-{
-	size_t	length;
-
-	if (str == NULL)
+	index = length;
+	str[index] = '\0';
+	index--;
+	while (n / 10 != 0)
 	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
+		str[index] = (n % 10) + 48;
+		index--;
+		n = n / 10;
 	}
-	length = ft_strlen(str);
-	ft_putstr_fd(str, 1);
-	return (length);
+	str[index] = (n % 10) + 48;
 }
 
-size_t	print_int(int nbr)
+char	*ft_uitoa(unsigned int n)
+{
+	char	*str;
+	size_t	length;
+
+	length = count_digit_base(n, 10);
+	str = malloc((length + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	write_str(n, str, length);
+	return (str);
+}
+
+size_t	print_uint(unsigned int nbr)
 {
 	size_t	length;
 	char	*str;
 
-	str = ft_itoa(nbr);
+	str = ft_uitoa(nbr);
 	length = ft_strlen(str);
 	ft_putstr_fd(str, 1);
 	free(str);
 	return (length);
-}
-
-size_t	count_digit_base(unsigned long n, unsigned int base)
-{
-	size_t	counter;
-
-	counter = 1;
-	while (n / base != 0)
-	{
-		counter++;
-		n = n / base;
-	}
-	return (counter);
 }
